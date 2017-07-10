@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "408883151561",
+    "firebase_url": "https://gsonger-bdd03.firebaseio.com",
+    "project_id": "gsonger-bdd03",
+    "storage_bucket": "gsonger-bdd03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408883151561:android:df145039893c8598",
+        "android_client_info": {
+          "package_name": "lyapkoandy13.gsonger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408883151561-m7qisjfnqergqus1fc2qe5jdecr1acqf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lyapkoandy13.gsonger",
+            "certificate_hash": "adea3f7a32e564e404c66e425ada03b7a551d710"
+          }
+        },
+        {
+          "client_id": "408883151561-k4vag7r08ci2rnirframk2tuhegh9cci.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lyapkoandy13.gsonger",
+            "certificate_hash": "56f0dddc2d8b98a2960be7c248d0253205096185"
+          }
+        },
+        {
+          "client_id": "408883151561-8ruo053pgd5vumih271dodq979u2smnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA9fgfP4GYn0ercUH0fvSqEWqcRoxYCwk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "408883151561-8ruo053pgd5vumih271dodq979u2smnc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
