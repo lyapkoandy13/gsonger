@@ -15,19 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "408883151561-m7qisjfnqergqus1fc2qe5jdecr1acqf.apps.googleusercontent.com",
+          "client_id": "408883151561-fppu0i5gu4rh4mpakd7b6tt5rd0rcgvq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "lyapkoandy13.gsonger",
-            "certificate_hash": "adea3f7a32e564e404c66e425ada03b7a551d710"
+            "certificate_hash": "9db96bb5914e1c481a0e60f1663e58f62aefccaa"
           }
         },
         {
-          "client_id": "408883151561-k4vag7r08ci2rnirframk2tuhegh9cci.apps.googleusercontent.com",
+          "client_id": "408883151561-7op8h02ek58bqe0of83nm7op41n2q14f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "lyapkoandy13.gsonger",
-            "certificate_hash": "56f0dddc2d8b98a2960be7c248d0253205096185"
+            "certificate_hash": "fb687824578cfb3620b3f21da9abb217635f442f"
           }
         },
         {
