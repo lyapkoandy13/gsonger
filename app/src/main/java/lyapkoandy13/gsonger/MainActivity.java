@@ -16,8 +16,8 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private FragmentNewSong fragmentNewSong;
     private android.app.FragmentTransaction ftrans;
+    private FragmentSearch fragmentSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +78,12 @@ public class MainActivity extends AppCompatActivity
         ftrans = getFragmentManager().beginTransaction();
 
         if (id == R.id.nav_user_songs) {
-            ftrans.replace(R.id.container, fragmentNewSong);
+
         } else if (id == R.id.nav_create_song) {
-
+            FragmentNewSong fragmentNewSong = new FragmentNewSong();
+            ftrans.replace(R.id.container, fragmentNewSong);
         } else if (id == R.id.nav_search) {
-
+            ftrans.replace(R.id.container, fragmentSearch);
         } else if (id == R.id.nav_logout) {
 
         } ftrans.commit();
@@ -95,9 +96,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        fragmentNewSong = new FragmentNewSong();
+        fragmentSearch = new FragmentSearch();
         ftrans = getFragmentManager().beginTransaction();
-        ftrans.replace(R.id.container, fragmentNewSong);
+        ftrans.replace(R.id.container, fragmentSearch);
         ftrans.commit();
     }
 }
