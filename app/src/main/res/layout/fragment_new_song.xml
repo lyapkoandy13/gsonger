@@ -12,8 +12,10 @@
 
         <EditText
             android:id="@+id/newSong_et_artist"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22dp"
@@ -23,10 +25,10 @@
 
         <EditText
             android:id="@+id/newSong_et_name"
-            android:layout_width="wrap_content"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/newSong_et_artist"
-            android:layout_alignStart="@+id/newSong_et_artist"
             android:layout_below="@+id/newSong_et_artist"
             android:ems="10"
             android:hint="Song name"
@@ -56,6 +58,9 @@
             android:gravity="top"
             android:inputType="textMultiLine"
             android:selectAllOnFocus="false"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
             android:singleLine="false" />
 
         <Button
@@ -67,6 +72,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
+            android:layout_margin="10dp"
             android:text="Create song" />
 
     </RelativeLayout>

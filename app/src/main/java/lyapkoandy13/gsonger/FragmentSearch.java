@@ -1,5 +1,7 @@
 package lyapkoandy13.gsonger;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -98,6 +101,7 @@ public class FragmentSearch extends android.app.Fragment {
                 mapSongs.clear();
                 for(DataSnapshot songSnapshot: dataSnapshot.getChildren()){
                     Song tSong = songSnapshot.getValue(Song.class);
+                    tSong.setId(songSnapshot.getKey());
                     mapSongs.put(songSnapshot.getKey(), tSong);
                     arrSongs.add(tSong);
                 }
@@ -107,6 +111,30 @@ public class FragmentSearch extends android.app.Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+        lvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String songId = arrSongs.get(position).getId();
+                String songText = arrSongs.get(position).getText();
+                String songAuthor = arrSongs.get(position).getAuthor();
+                String songArtist = arrSongs.get(position).getArtist();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("songId", songId);
+                bundle.putString("songText", songText);
+                bundle.putString("songAuthor", songAuthor);
+                bundle.putString("songArtist", songArtist);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                FragmentSong fragmentSong = new FragmentSong();
+                fragmentSong.setArguments(bundle);
+
+                fragmentTransaction.replace(R.id.container, fragmentSong);
+                fragmentTransaction.commit();
             }
         });
     }

@@ -1,12 +1,21 @@
 package lyapkoandy13.gsonger;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -14,18 +23,13 @@ import android.view.ViewGroup;
  * Activities that contain this fragment must implement the
  * {@link FragmentSong.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentSong#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class FragmentSong extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class FragmentSong extends android.app.Fragment {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String songText;
+    private String songAuthor;
+    private String songArtist;
+    private String songId;
 
     private OnFragmentInteractionListener mListener;
 
@@ -33,30 +37,14 @@ public class FragmentSong extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentSong.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentSong newInstance(String param1, String param2) {
-        FragmentSong fragment = new FragmentSong();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            songText = getArguments().getString("songText");
+            songAuthor = getArguments().getString("songAuthor");
+            songId = getArguments().getString("songId");
+            songArtist = getArguments().getString("songArtist");
         }
     }
 
@@ -67,10 +55,53 @@ public class FragmentSong extends Fragment {
         return inflater.inflate(R.layout.fragment_song, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(getArguments() != null) {
+            SongParser songParser = new SongParser(this.songText);
+            ArrayList<HashMap<String, String>> arrChordsAndPhrases = songParser.parse();
+            if ( !arrChordsAndPhrases.isEmpty() ) {
+                LinearLayout song_container = (LinearLayout) view.findViewById(R.id.song_container);
+                for(HashMap<String,String> line:arrChordsAndPhrases){
+                    LinearLayout line_container = new LinearLayout(getActivity());
+
+                    line_container.setOrientation(LinearLayout.HORIZONTAL);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    line_container.setLayoutParams(layoutParams);
+
+                    // dp to pixel conversion
+                    float scale = getResources().getDisplayMetrics().density;
+                    int dpAsPixels = (int) (15*scale + 0.5f);
+
+                    line_container.setPadding(dpAsPixels,dpAsPixels,dpAsPixels,dpAsPixels);
+
+                    for(Map.Entry<String, String> chordAndPhrase : line.entrySet()){
+                        LinearLayout phrase_container = new LinearLayout(getActivity());
+
+                        phrase_container.setOrientation(LinearLayout.VERTICAL);
+                        LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        phrase_container.setLayoutParams(layoutParams1);
+
+                        TextView tvChord = new TextView(getActivity());
+                        layoutParams1.width = layoutParams1.MATCH_PARENT;
+                        layoutParams1.height =  layoutParams1.WRAP_CONTENT;
+                        tvChord.setLayoutParams(layoutParams1);
+                        tvChord.setText(chordAndPhrase.getKey());
+
+                        TextView tvPhrase = new TextView(getActivity());
+                        tvPhrase.setLayoutParams(layoutParams1);
+                        tvPhrase.setText(chordAndPhrase.getValue());
+                        tvPhrase.setTextColor(Color.BLACK);
+
+                        phrase_container.addView(tvChord);
+                        phrase_container.addView(tvPhrase);
+
+                        line_container.addView(phrase_container);
+                    }
+                    song_container.addView(line_container);
+                }
+            }
         }
     }
 
