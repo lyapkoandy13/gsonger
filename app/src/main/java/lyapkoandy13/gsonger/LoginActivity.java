@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -24,14 +25,15 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1;
-    private FirebaseAuth mAuth;
-    private GoogleApiClient mGoogleApiClient;
+    private  FirebaseAuth mAuth;
+    private  GoogleApiClient mGoogleApiClient;
     private SignInButton sign_in_button;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Sign in");
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -57,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        TextView textView = (TextView) sign_in_button.getChildAt(0);
+        textView.setText("Sign in");
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -76,6 +80,14 @@ public class LoginActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    public void signOut() {
+        // Firebase sign out
+        mAuth.signOut();
+
+        // Google sign out
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
     }
 
     @Override

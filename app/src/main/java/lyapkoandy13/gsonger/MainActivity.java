@@ -1,23 +1,27 @@
 package lyapkoandy13.gsonger;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private android.app.FragmentTransaction ftrans;
-    private FragmentSearch fragmentSearch;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        TextView tUser = (TextView) navigationView.getHeaderView(0).findViewById(R.id.main_activity_user);
+        //TextView tUser = findViewById(R.id.main_activity_user);
+        tUser.setText(mAuth.getCurrentUser().getEmail().toString());
     }
 
     @Override
@@ -47,12 +54,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -60,11 +61,6 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -78,14 +74,21 @@ public class MainActivity extends AppCompatActivity
         ftrans = getFragmentManager().beginTransaction();
 
         if (id == R.id.nav_user_songs) {
-
+            FragmentUserPage fragmentUserPage = new FragmentUserPage();
+            ftrans.replace(R.id.container, fragmentUserPage);
+            setTitle("Home");
         } else if (id == R.id.nav_create_song) {
             FragmentNewSong fragmentNewSong = new FragmentNewSong();
             ftrans.replace(R.id.container, fragmentNewSong);
+            setTitle("New Song");
         } else if (id == R.id.nav_search) {
+            FragmentSearch fragmentSearch = new FragmentSearch();
             ftrans.replace(R.id.container, fragmentSearch);
+            setTitle("Search");
         } else if (id == R.id.nav_logout) {
-
+            mAuth.signOut();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
         } ftrans.commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -96,9 +99,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        fragmentSearch = new FragmentSearch();
+        FragmentUserPage fragmentUserPage = new FragmentUserPage();
         ftrans = getFragmentManager().beginTransaction();
-        ftrans.replace(R.id.container, fragmentSearch);
+        ftrans.replace(R.id.container, fragmentUserPage);
+        setTitle("Home");
         ftrans.commit();
     }
 }
