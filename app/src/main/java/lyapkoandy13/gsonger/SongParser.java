@@ -28,9 +28,9 @@ public class SongParser {
     public ArrayList<HashMap<String,String>> parse(){
         if(this.songText != null){
             ArrayList<HashMap<String,String>> lineChordsAndText = new ArrayList<>();
-            HashMap<String,String> chordsAndText = new HashMap<>();
             String lines[] = this.songText.split("\\n");
             for(String line: lines) {
+                HashMap<String,String> chordsAndText = new HashMap<>();
 
                 int firstIndex = line.indexOf("[");
                 int secondIndex = line.indexOf("]");
