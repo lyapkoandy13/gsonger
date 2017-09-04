@@ -7,10 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -116,16 +119,18 @@ public class FragmentSearch extends android.app.Fragment {
         lvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String songId = arrSongs.get(position).getId();
-                String songText = arrSongs.get(position).getText();
-                String songAuthor = arrSongs.get(position).getAuthor();
-                String songArtist = arrSongs.get(position).getArtist();
+                String songId = songAdapter.getItem(position).getId();
+                String songText = songAdapter.getItem(position).getText();
+                String songAuthor = songAdapter.getItem(position).getAuthor();
+                String songArtist = songAdapter.getItem(position).getArtist();
+                String songName = songAdapter.getItem(position).getName();
 
                 Bundle bundle = new Bundle();
                 bundle.putString("songId", songId);
                 bundle.putString("songText", songText);
                 bundle.putString("songAuthor", songAuthor);
                 bundle.putString("songArtist", songArtist);
+                bundle.putString("songName", songName);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -136,6 +141,23 @@ public class FragmentSearch extends android.app.Fragment {
                 fragmentTransaction.replace(R.id.container, fragmentSong);
                 getActivity().setTitle("Song");
                 fragmentTransaction.commit();
+            }
+        });
+        EditText etSearch = (EditText) getActivity().findViewById(R.id.et_search);
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                songAdapter.getFilter().filter(s.toString().toLowerCase());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }

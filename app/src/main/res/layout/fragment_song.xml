@@ -20,7 +20,7 @@
                 android:id="@+id/song_name"
                 android:layout_width="225dp"
                 android:layout_height="wrap_content"
-                android:text="Love burns"
+                android:text="TEST"
                 android:textColor="@color/black"
                 android:textSize="25dp" />
 
@@ -28,16 +28,16 @@
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="top"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="by"
-                android:layout_gravity="top"/>
+                android:text="by" />
 
             <TextView
                 android:id="@+id/song_artist"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="BRMC" />
+                android:text="TEST" />
         </LinearLayout>
 
         <LinearLayout
@@ -59,7 +59,7 @@
                 android:id="@+id/song_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="lyapkoandy13@gmail.com" />
+                android:text="TEST" />
         </LinearLayout>
 
     </LinearLayout>

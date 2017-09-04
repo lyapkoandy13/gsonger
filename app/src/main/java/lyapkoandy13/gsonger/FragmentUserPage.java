@@ -90,12 +90,14 @@ public class FragmentUserPage extends android.app.Fragment {
                 String songText = arrSongs.get(position).getText();
                 String songAuthor = arrSongs.get(position).getAuthor();
                 String songArtist = arrSongs.get(position).getArtist();
+                String songName = songAdapter.getItem(position).getName();
 
                 Bundle bundle = new Bundle();
                 bundle.putString("songId", songId);
                 bundle.putString("songText", songText);
                 bundle.putString("songAuthor", songAuthor);
                 bundle.putString("songArtist", songArtist);
+                bundle.putString("songName", songName);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

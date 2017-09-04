@@ -30,6 +30,7 @@ public class FragmentSong extends android.app.Fragment {
     private String songAuthor;
     private String songArtist;
     private String songId;
+    private String songName;
 
     private OnFragmentInteractionListener mListener;
 
@@ -45,6 +46,7 @@ public class FragmentSong extends android.app.Fragment {
             songAuthor = getArguments().getString("songAuthor");
             songId = getArguments().getString("songId");
             songArtist = getArguments().getString("songArtist");
+            songName = getArguments().getString("songName");
         }
     }
 
@@ -58,6 +60,14 @@ public class FragmentSong extends android.app.Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        TextView tvName = (TextView) getActivity().findViewById(R.id.song_name);
+        TextView tvAuthor = (TextView) getActivity().findViewById(R.id.song_author);
+        TextView tvArtist = (TextView) getActivity().findViewById(R.id.song_artist);
+
+        tvArtist.setText(this.songArtist);
+        tvAuthor.setText(this.songAuthor);
+        tvName.setText(this.songName);
+
         if(getArguments() != null) {
             SongParser songParser = new SongParser(this.songText);
             ArrayList<HashMap<String, String>> arrChordsAndPhrases = songParser.parse();

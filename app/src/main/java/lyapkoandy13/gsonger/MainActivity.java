@@ -1,6 +1,7 @@
 package lyapkoandy13.gsonger;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +18,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, FragmentUserPage.OnFragmentInteractionListener, FragmentSearch.OnFragmentInteractionListener, FragmentNewSong.OnFragmentInteractionListener,  FragmentSong.OnFragmentInteractionListener {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private android.app.FragmentTransaction ftrans;
@@ -104,5 +105,10 @@ public class MainActivity extends AppCompatActivity
         ftrans.replace(R.id.container, fragmentUserPage);
         setTitle("Home");
         ftrans.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
